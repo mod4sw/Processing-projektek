@@ -1,25 +1,33 @@
-Target target;
+final int targetCount = 20;
+Target[] targets;
 int points = 0;
 int time;
 
 void setup(){
   size(1366, 768);
   noCursor();
-  target = new Target();
-  time = 30 * 60;
+  targets = new Target[targetCount];
+  for(int i = 0; i < targetCount; i++){
+    targets[i] = new Target();
+  }
+  time = 30;
 }
 
 void draw(){
   background(200);
-  target.draw();
+  for(int i = 0; i < targetCount; i++){
+    targets[i].draw();
+    if(targets[i].position.x - targets[i].size/2 > width ||
+       targets[i].position.x + targets[i].size/2 < 0 ||
+       targets[i].position.y - targets[i].size/2 > height ||
+       targets[i].position.y + targets[i].size/2 < 0){
+         targets[i] = new Target();
+     }
+  }
+  
   crosshair();
   points();
-  if(target.position.x - target.size/2 > width ||
-     target.position.x + target.size/2 < 0 ||
-     target.position.y - target.size/2 > height ||
-     target.position.y + target.size/2 < 0){
-       target = new Target();
-     }
+  
   time--;
   if(time <= 0){
     noLoop();
@@ -27,8 +35,9 @@ void draw(){
     textSize(50);
     fill(100, 0, 0);
     textAlign(CENTER, CENTER);
-    text("Processing Shooter\n\nGame Over!\nPoints: " + points + 
-    "\nClick to restart\n\nYouTube.com/mod4\nDownload from: GitHub.com/mod4sw", width/2, height/2);
+    text("Processing Shooter\n\nGame Over!\nPontszám: " + points + 
+    "\nKattints az újrakezdéshez!\n\nYouTube.com/mod4\nLetölthető: GitHub.com/mod4sw", width/2, height/2);
+    delay(1000);
   }
 }
 
@@ -65,17 +74,21 @@ void setGameTime(){
 void mousePressed(){
   if(time <= 0){
     setGameTime();
-    target = new Target();
+    for(int i = 0; i < targetCount; i++){
+      targets[i] = new Target();
+    } 
+    points = 0;
     textAlign(LEFT);
     loop();
   }
   else{
     PVector mousePos = new PVector(mouseX, mouseY);
-    println("Különbség: " + target.position.dist(mousePos));
-    if(target.position.dist(mousePos) <= target.size/2){
-      points += target.points();
-      time += target.velocity.mag() * 10;
-      target = new Target(); 
+    for(int i = 0; i < targetCount; i++){
+      if(targets[i].position.dist(mousePos) <= targets[i].size/2){
+        points += targets[i].points();
+        time += targets[i].velocity.mag() * 5;
+        targets[i] = new Target(); 
+      }
     }
   }
 }
