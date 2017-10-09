@@ -10,7 +10,7 @@ void setup(){
   for(int i = 0; i < targetCount; i++){
     targets[i] = new Target();
   }
-  time = 30;
+  time = 30 * 60;
 }
 
 void draw(){
