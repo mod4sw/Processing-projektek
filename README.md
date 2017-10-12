@@ -19,3 +19,10 @@ Processing Shooter
 
 Egy végtelenül egyszerű kvázi-FPS. Te el tudod érni az 1000 pontot?
 https://youtu.be/rszri4SNQlg
+
+Agar.IO klón
+------------
+
+A népszerű online játék saját verziója.
+Helyi többjátékos, az egyik egérrel, a másik a nyilakkak irányíthatja a bogyóját.
+https://youtu.be/b06_WAJROmw
